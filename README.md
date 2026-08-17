@@ -13,7 +13,15 @@ Here are some ideas to get you started:
 - 📫 How to reach me: ...
 - 😄 Pronouns: ...
 - ⚡ Fun fact: ...
--->
+
 
 ![tryhackme stats](https://raw.githubusercontent.com/j-l-w-8-2-3-4/j-l-w-8-2-3-4/master/assets/thm_propic.png)
 ![tryhackme stats!](https://github.com/j-l-w-8-2-3-4/j-l-w-8-2-3-4/blob/main/assets/tryhackme2.png)
+-->
+
+## 🔐 Hacking Stats
+
+<img src="assets/tryhackme-badge.png" alt="TryHackMe Badge" width="300"/>
+
+<!--START_SECTION:htb-stats-->
+<!--END_SECTION:htb-stats-->
