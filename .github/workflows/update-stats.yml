@@ -1,0 +1,63 @@
+##name: TryHackMe Update Badge
+
+##on:
+  #schedule:
+    # Make it run every 24 hour
+   ## - cron: '0 0 * * *'
+  ##workflow_dispatch:
+##jobs:
+##  tryhackme-badge-update:
+##    name: Update this repo's tryhackme badge with the latest tryhackme image badge
+  ##  runs-on: ubuntu-latest
+    ##steps:
+##      - uses: actions/checkout@v2
+      ##- uses: p4p1/tryhackme-badge-workflow@main
+        ##with:
+          # Replace with your tryhackme username
+          ##username: "cashMeIfYouCan2"
+          ##GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}} # Do not paste your github token here - this is a placeholder
+                                                  # and will pull your github token automatically
+
+name: Update Security Stats
+
+on:
+  schedule:
+    - cron: "0 6 * * *"   # daily at 06:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-stats:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Update HTB stats in README
+        env:
+          HTB_API_TOKEN: ${{ secrets.HTB_API_TOKEN }}
+          HTB_PROFILE_ID: ${{ secrets.HTB_PROFILE_ID }}
+        run: python scripts/fetch_htb_stats.py
+
+      - name: Download latest TryHackMe badge
+        env:
+          THM_BADGE_URL: ${{ secrets.THM_BADGE_URL }}
+        run: |
+          mkdir -p assets
+          curl -sSL "$THM_BADGE_URL" -o assets/tryhackme-badge.png
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: update HTB/THM stats [skip ci]"
+          file_pattern: "README.md assets/tryhackme-badge.png"
